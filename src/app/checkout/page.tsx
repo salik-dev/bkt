@@ -314,13 +314,6 @@ export default function CheckoutPage() {
                 )}
               </div>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox id="newsletter" />
-                <Label htmlFor="newsletter" className="text-sm cursor-pointer">
-                  Subscribe to our newsletter
-                </Label>
-              </div>
-
               <div className="mt-4">
                 <Label htmlFor="order-notes" className="text-sm font-semibold">Order notes</Label>
                 <Textarea

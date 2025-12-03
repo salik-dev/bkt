@@ -89,20 +89,8 @@ export default function OrderConfirmationPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Success Message */}
-        <div className="bg-green-50 border-2 border-green-200 rounded-lg p-8 mb-8 text-center">
-          <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-green-800 mb-2">
-            Takk for din bestilling!
-          </h1>
-          <p className="text-gray-700 mb-4">
-            Din bestilling er mottatt og behandles nå. Du vil motta en bekreftelse på e-post.
-          </p>
-          <p className="text-lg font-semibold">
-            Bestillingsnummer: <span className="text-[#4A5D7E]">{orderData.orderNumber}</span>
-          </p>
-        </div>
+      <div className="container mx-auto px-4 py-8 max-w-[70rem] shadown-lg rounded-lg">
+        
 
         {/* Action Buttons */}
         <div className="flex justify-center gap-4 mb-8 print:hidden">
