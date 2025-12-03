@@ -1,21 +1,5 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "env": ["SOME_ENV_VAR", "API_KEY_VAR"],
-      "outputs": [".next/**", "!.next/cache/**"] 
-    },
-    "web#build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "env": ["SOME_OTHER_ENV_VAR"],
-      "outputs": ["dist/**"]
-    }
-  },
   "globalEnv": [
     "GITHUB_TOKEN"
   ],
