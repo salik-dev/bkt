@@ -8,7 +8,6 @@ import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
 import { ShoppingCart, Facebook, Twitter } from "lucide-react"
 import { FaPinterest } from "react-icons/fa"
 
