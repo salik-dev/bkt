@@ -16,10 +16,10 @@ const nextConfig: NextConfig = {
     ],
   },
   outputFileTracingRoot: path.resolve(__dirname, '../../'),
+  distDir: '.next',
   typescript: {
     ignoreBuildErrors: true,
   },
-  output: 'standalone'
   // turbopack: {
   //   rules: {
   //     "*.{jsx,tsx}": {
