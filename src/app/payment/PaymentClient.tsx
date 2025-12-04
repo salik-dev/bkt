@@ -3,12 +3,19 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { loadStripe } from '@stripe/stripe-js'
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+
+// Stripe elements imports
+
+import { Elements } from '@stripe/react-stripe-js'
+import { StripePaymentForm } from '@/components/StripePaymentForm'
+import { useToast } from "@/components/ui/toast"
 
 interface CartItem {
   id: string
@@ -17,6 +24,9 @@ interface CartItem {
   quantity: number
   total: number
 }
+
+// Initialize Stripe with your publishable key
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51Qp4n2Rpo5RfLaH6ONHCcXRpdDMqggbkMBMi9KHVn94ZBYps9oHfliXgrycnr5DOHt3EboCuK7WYC99Un3lTnGK000tstHYjFg')
 
 export default function PaymentClient() {
   
@@ -27,6 +37,8 @@ export default function PaymentClient() {
     const [paymentType, setPaymentType] = useState<"card" | "vipps">("card")
     const [agreeToTerms, setAgreeToTerms] = useState(false)
     const [isClient, setIsClient] = useState(false)
+    const [processing, setProcessing] = useState(false);
+    const { showToast, Toast: ToastComponent } = useToast();
   
     const [cardData, setCardData] = useState({
       cardNumber: "",
@@ -72,38 +84,104 @@ export default function PaymentClient() {
       return calculateSubtotal() + calculateFreight()
     }
   
-    const handlePayment = () => {
-      if (!agreeToTerms) {
-        alert("Vennligst aksepter vilkårene for å fortsette")
-        return
-      }
+const handlePayment = useCallback(async (paymentMethodId?: string) => {
+  try {
+    // Remove the terms check from here
+    
+    setProcessing(true);
+    // Store order data
+    const orderData = {
+      billingData,
+      paymentType: 'card',
+      orderNotes,
+      items: cartItems,
+      subtotal: calculateSubtotal(),
+      freight: calculateFreight(),
+      total: calculateTotal(),
+      orderDate: new Date().toISOString(),
+      orderNumber: `#${Math.floor(Math.random() * 10000)}`,
+      paymentMethodId,
+    };
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Store in localStorage
+    localStorage.setItem("lastOrder", JSON.stringify(orderData));
+    localStorage.removeItem("cart");
+    
+    // Show success message
+    showToast("Betalingen var vellykket! Omdirigerer...", "success");
+    
+    // Redirect after a short delay
+    setTimeout(() => {
+      router.push("/order-confirmation");
+    }, 1500);
+  } catch (error) {
+    console.error('Error processing payment:', error);
+    showToast('Det oppsto en feil under behandling av betalingen. Vennligst prøv igjen.', 'error');
+    setProcessing(false);
+  }
+}, [billingData, cartItems, orderNotes, router, showToast]);
+
   
-      // Store order data
-      const orderData = {
-        billingData,
-        paymentType,
-        orderNotes,
-        items: cartItems,
-        subtotal: calculateSubtotal(),
-        freight: calculateFreight(),
-        total: calculateTotal(),
-        orderDate: new Date().toISOString(),
-        orderNumber: `#${Math.floor(Math.random() * 10000)}`
-      }
-  
-      localStorage.setItem("lastOrder", JSON.stringify(orderData))
-      localStorage.removeItem("cart")
-      
-      router.push("/order-confirmation")
+    const handleStripePayment = useCallback(async (paymentMethod: any) => {
+  try {
+    setProcessing(true);
+    
+    // Here you would typically send the payment method ID to your server
+    // to complete the payment. For example:
+    const response = await fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentMethodId: paymentMethod.id,
+        amount: calculateTotal() * 100, // amount in øre
+        currency: 'nok',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create payment intent');
     }
+
+    const { clientSecret } = await response.json();
+
+    // Get the Stripe instance from the promise
+    const stripe = await stripePromise;
+    
+    if (!stripe) {
+      throw new Error('Stripe failed to initialize');
+    }
+    
+    // Confirm the payment
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: paymentMethod.id,
+      return_url: window.location.origin + '/order-confirmation',
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    // If we get here, payment was successful
+    await handlePayment(paymentMethod.id);
+  } catch (err) {
+    console.error('Payment failed:', err);
+    showToast('Betalingen mislyktes. Vennligst prøv igjen.', 'error');
+    setProcessing(false);
+  }
+}, [handlePayment, showToast]);
   
     if (!isClient) {
       return null
     }
 
-    
     return (
        <div className="min-h-screen bg-gray-50">
+      <ToastComponent />
       <div className="container mx-auto max-w-[70rem] px-4 py-8">
         <Button 
           variant="outline" 
@@ -279,55 +357,18 @@ export default function PaymentClient() {
                   </div>
 
                   {paymentType === "card" && (
-                    <div className="space-y-4 mt-4">
-                      <div>
-                        <Label htmlFor="cardNumber" className="text-sm">Kortnummer</Label>
-                        <Input 
-                          id="cardNumber"
-                          placeholder="1234 5678 9012 3456"
-                          value={cardData.cardNumber}
-                          onChange={(e) => setCardData({...cardData, cardNumber: e.target.value})}
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="expiry" className="text-sm">Utløper (mm/åå)</Label>
-                          <Input 
-                            id="expiry"
-                            placeholder="MM/ÅÅ"
-                            value={cardData.expiryDate}
-                            onChange={(e) => setCardData({...cardData, expiryDate: e.target.value})}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="cvc" className="text-sm">
-                            CVC
-                            <span className="ml-1 text-gray-400 cursor-help" title="3-digit security code">ⓘ</span>
-                          </Label>
-                          <Input 
-                            id="cvc"
-                            placeholder="CVC"
-                            value={cardData.cvc}
-                            onChange={(e) => setCardData({...cardData, cvc: e.target.value})}
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <Checkbox 
-                          id="saveCard"
-                          checked={cardData.saveCard}
-                          onCheckedChange={(checked) => setCardData({...cardData, saveCard: checked as boolean})}
-                        />
-                        <Label htmlFor="saveCard" className="text-sm cursor-pointer">
-                          Lagre mitt kort
-                        </Label>
-                      </div>
-                    </div>
+                    <Elements stripe={stripePromise}>
+                      <StripePaymentForm
+                        totalAmount={calculateTotal().toFixed(2)}
+                        onSuccess={handleStripePayment}
+                        onError={(error: any) => {
+                          console.error('Payment error:', error)
+                          setProcessing(false)
+                        }}
+                        processing={processing}
+                        setProcessing={setProcessing}
+                      />
+                    </Elements>
                   )}
                 </div>
 
@@ -490,7 +531,7 @@ export default function PaymentClient() {
                   rows={3}
                   className="mt-2"
                 />
-              </div>
+                </div>
             </div>
           </div>
         </div>
