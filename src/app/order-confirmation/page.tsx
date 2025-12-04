@@ -271,13 +271,13 @@ export default function OrderConfirmationPage() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <div className="bg-[#4A5D7E] px-3 py-1 rounded">
-                  <span className="text-white font-bold text-xl">BKT</span>
+                  <span className="text-white font-bold text-xl">NorskBilTeknikk</span>
                 </div>
                 <span className="font-bold">BERGEN KOMMUNIKASJONSTEKNISK AS</span>
               </div>
               <div className="text-sm text-gray-600">
                 <p>Telefon: 55229001</p>
-                <p>E-post: bkt@bkt.no</p>
+                <p>E-post: test@norskbilteknikk.no</p>
                 <p>Org. nr: 960432835</p>
               </div>
             </div>

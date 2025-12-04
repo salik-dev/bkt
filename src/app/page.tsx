@@ -13,7 +13,7 @@ export default function Home() {
       <div className="bg-gradient-to-r from-[#4A5D7E] to-[#5B6D8E] text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">
-            Velkommen til BKT
+            Velkommen til NorskBilTeknikk
           </h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Din leverandør av taxiutstyr, bil elektrisk og kommunikasjonsteknologi
@@ -69,7 +69,7 @@ export default function Home() {
       {/* Features Section */}
       <div className="bg-white py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Hvorfor velge BKT?</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Hvorfor velge NorskBilTeknikk?</h2>
           
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>

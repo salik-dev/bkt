@@ -1,19 +1,31 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Minus, Plus, ShoppingCart, X, ZoomIn, Facebook, Twitter } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ShoppingCart, Facebook, Twitter } from "lucide-react"
 import { FaPinterest } from "react-icons/fa"
 
 export default function ProductDetailPage() {
   const router = useRouter()
   const [quantity, setQuantity] = useState(1)
-  const [lampType, setLampType] = useState("complete")
-  
+  const [lampType, setLampType] = useState<'complete' | 'top'>('complete')
+  const [isZoomed, setIsZoomed] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isZoomed) {
+      const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+      const x = ((e.clientX - left) / width) * 100
+      const y = ((e.clientY - top) / height) * 100
+      setCursorPosition({ x, y })
+    }
+  }
+
   const prices = {
     complete: 3480.0,
     topOnly: 2500.0
@@ -45,6 +57,58 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Image Modal */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setShowModal(false)}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowModal(false)
+            }}
+          >
+            <X size={32} />
+          </button>
+          <div className="relative w-full h-full max-w-4xl max-h-[90vh]">
+            <Image
+              src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1200&h=1200&fit=crop"
+              alt="Click & Go (Komplett taxilampe)"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      )}
+      {/* Image Modal */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setShowModal(false)}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowModal(false)
+            }}
+          >
+            <X size={32} />
+          </button>
+          <div className="relative w-full h-full max-w-4xl max-h-[90vh]">
+            <Image
+              src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1200&h=1200&fit=crop"
+              alt="Click & Go (Komplett taxilampe)"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      )}
       
       <div className="container mx-auto px-4 py-6">
         <div className="text-sm text-gray-600 mb-4">
@@ -52,15 +116,33 @@ export default function ProductDetailPage() {
           <span> Click & Go (Komplett taxilampe)</span>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-lg">
+        <div className="max-w-[80rem] grid md:grid-cols-2 gap-12 mx-auto bg-white p-8 rounded-lg">
           <div>
             <div className="relative aspect-square bg-white border rounded-lg overflow-hidden mb-4">
-              <Image
-                src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&h=800&fit=crop"
-                alt="Click & Go (Komplett taxilampe)"
-                fill
-                className="object-contain p-8"
-              />
+              <div 
+                className="relative w-full h-full cursor-zoom-in"
+                onMouseEnter={() => setIsZoomed(true)}
+                onMouseLeave={() => setIsZoomed(false)}
+                onMouseMove={handleMouseMove}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowModal(true)
+                }}
+              >
+                <Image
+                  src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1200&h=1200&fit=crop"
+                  alt="Click & Go (Komplett taxilampe)"
+                  fill
+                  className={`object-contain p-4 transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'}`}
+                  style={{
+                    transformOrigin: isZoomed ? `${cursorPosition.x}% ${cursorPosition.y}%` : 'center',
+                  }}
+                  priority
+                />
+                <div className="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md">
+                  <ZoomIn className="w-5 h-5 text-gray-700" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -76,7 +158,7 @@ export default function ProductDetailPage() {
               <label className="block text-sm font-semibold mb-2">
                 Select Lamp Type*
               </label>
-              <Select value={lampType} onValueChange={setLampType}>
+              <Select value={lampType} onValueChange={(value: 'complete' | 'top') => setLampType(value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select lamp type" />
                 </SelectTrigger>

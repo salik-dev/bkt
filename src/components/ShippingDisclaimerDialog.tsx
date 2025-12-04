@@ -39,7 +39,7 @@ export function ShippingDisclaimerDialog({
             vise korrekt pris i nettbutikken. I noen tilfeller kan fraktbeløpet som vises derfor være
             høyere enn den faktiske kostnaden. Vi justerer da portoen ned til riktig beløp før vi
             belaster deg – aldri opp. Har du spørsmål, er du selvfølgelig velkommen til å kontakte
-            oss på 55 22 90 01 eller bkt@bkt.no
+            oss på 55 22 90 01 eller norskBilTeknikk@norskbilteknikk.no
           </p>
         </div>
 
