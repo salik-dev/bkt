@@ -26,7 +26,8 @@ interface CartItem {
 }
 
 // Initialize Stripe with your publishable key
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51Qp4n2Rpo5RfLaH6ONHCcXRpdDMqggbkMBMi9KHVn94ZBYps9oHfliXgrycnr5DOHt3EboCuK7WYC99Un3lTnGK000tstHYjFg')
+  const pubKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+const stripePromise = loadStripe(pubKey!);
 
 export default function PaymentClient() {
   
