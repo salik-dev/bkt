@@ -23,7 +23,7 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
   const getTypeStyles = () => {
     switch (type) {
       case 'success':
-        return 'bg-green-100 border-green-400 text-green-700';
+        return '"border-[#8bc34a] bg-[#8bc34a] text-white';
       case 'error':
         return 'bg-red-100 border-red-400 text-red-700';
       case 'warning':
