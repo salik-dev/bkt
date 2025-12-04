@@ -86,7 +86,7 @@ export default function OrderConfirmationPage() {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <div className="container mx-auto px-4 py-8 max-w-[70rem] shadown-lg rounded-lg">
+      <div className="container mx-auto px-4 py-8 max-w-[70rem] rounded-lg">
         
 
         {/* Action Buttons */}
@@ -110,7 +110,7 @@ export default function OrderConfirmationPage() {
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Order Details */}
-          <div className="bg-white p-6 rounded-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-6 pb-3 border-b">Ordredetaljer</h2>
             
             <div className="space-y-6">
@@ -184,7 +184,7 @@ export default function OrderConfirmationPage() {
           </div>
 
           {/* Order Summary */}
-          <div className="bg-white p-6 rounded-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-6 pb-3 border-b">Ordresammendrag</h2>
             
             <div className="space-y-4">
@@ -266,7 +266,7 @@ export default function OrderConfirmationPage() {
         </div>
 
         {/* Company Information */}
-        <div className="bg-white p-6 rounded-lg mt-8">
+        <div className="bg-white p-6 rounded-lg mt-8 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">

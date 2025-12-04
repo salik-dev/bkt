@@ -489,7 +489,7 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-lg sticky top-4">
+            <div className="bg-white p-6 rounded-lg sticky top-4 shadow-lg">
               <h2 className="text-xl font-bold mb-6">OPPSUMMERING</h2>
               
               <div className="space-y-3 mb-6">
