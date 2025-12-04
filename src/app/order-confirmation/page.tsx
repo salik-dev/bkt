@@ -266,28 +266,28 @@ export default function OrderConfirmationPage() {
         </div>
 
         {/* Company Information */}
-        <div className="bg-white p-6 rounded-lg mt-8 shadow-lg">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="bg-[#7cb342] px-3 py-1 rounded">
-                  <span className="text-white font-bold text-xl">NorskBilTeknikk</span>
-                </div>
-                <span className="font-bold">BERGEN KOMMUNIKASJONSTEKNISK AS</span>
-              </div>
-              <div className="text-sm text-gray-700">
-                <p>Telefon: 55229001</p>
-                <p>E-post: test@norskbilteknikk.no</p>
-                <p>Org. nr: 960432835</p>
-              </div>
-            </div>
-            <div className="text-right text-sm text-gray-600">
-              <p>Har du spørsmål om din bestilling?</p>
-              <p>Kontakt kundeservice:</p>
-              <p className="font-semibold text-[#8bc34a]">Hverdager 07:30 - 15:30</p>
-            </div>
-          </div>
+      <div className="bg-white p-4 sm:p-6 rounded-lg mt-6 sm:mt-8 shadow-lg">
+  <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+    <div className="space-y-2 sm:space-y-1">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+        <div className="bg-[#7cb342] px-3 py-1 rounded w-fit">
+          <span className="text-white font-bold text-lg sm:text-xl">NorskBilTeknikk</span>
         </div>
+        <span className="font-bold text-sm sm:text-base">BERGEN KOMMUNIKASJONSTEKNISK AS</span>
+      </div>
+      <div className="text-xs sm:text-sm text-gray-700 space-y-0.5">
+        <p className="break-words">Telefon: 55229001</p>
+        <p className="break-all">E-post: test@norskbilteknikk.no</p>
+        <p>Org. nr: 960432835</p>
+      </div>
+    </div>
+    <div className="text-left sm:text-right text-xs sm:text-sm text-gray-600 mt-2 sm:mt-0">
+      <p>Har du spørsmål om din bestilling?</p>
+      <p>Kontakt kundeservice:</p>
+      <p className="font-semibold text-[#8bc34a] whitespace-nowrap">Hverdager 07:30 - 15:30</p>
+    </div>
+  </div>
+</div>
 
         {/* Additional Links */}
         <div className="text-center mt-8 print:hidden">
