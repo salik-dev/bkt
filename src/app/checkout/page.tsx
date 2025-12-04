@@ -138,12 +138,12 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <form onSubmit={handleConfirmOrder} className="container max-w-[70rem] mx-auto px-4 py-8">
+      <form onSubmit={handleConfirmOrder} className="container max-w-280 mx-auto px-4 py-8">
         <Button
           type="button"
           variant="outline" 
           onClick={() => router.back()}
-          className="mb-6"
+          className="mb-6 bg-[#8bc34a] hover:bg-[#7cb342] text-white hover:text-white"
         >
           ← Back
         </Button>
@@ -484,7 +484,7 @@ export default function CheckoutPage() {
                   />
                   <Label htmlFor="terms" className="text-sm cursor-pointer">
                     I have read and accept the{" "}
-                    <Link href="/terms" className="text-[#4A5D7E] underline">
+                    <Link href="/terms" className="text-[#8bc34a] underline">
                       terms of sale
                     </Link>{" "}
                     <span className="text-red-500">*</span>
@@ -499,7 +499,7 @@ export default function CheckoutPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-[#4A5D7E] hover:bg-[#3d4d68] text-white py-6 text-lg"
+                className="w-full bg-[#8bc34a] hover:bg-[#7cb342] text-white py-6 text-lg"
               >
                 Confirm order
               </Button>

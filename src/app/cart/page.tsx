@@ -74,7 +74,7 @@ export default function CartPage() {
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-6">
-          <Link href="/" className="text-[#4A5D7E] hover:underline">← Back to Products</Link>
+          <Link href="/" className="text-[#8bc34a] hover:underline">← Back to Products</Link>
         </div>
 
         <h1 className="text-3xl font-bold mb-8">Your Order</h1>
@@ -84,7 +84,7 @@ export default function CartPage() {
             <p className="text-xl text-gray-600 mb-6">Your cart is empty</p>
             <Button 
               onClick={() => router.push("/products/1")}
-              className="bg-[#4A5D7E] hover:bg-[#3d4d68] text-white px-8 py-6 text-lg"
+              className="bg-[#8bc34a] hover:bg-[#3d4d68] text-white px-8 py-6 text-lg"
             >
               Continue Shopping
             </Button>
@@ -93,12 +93,6 @@ export default function CartPage() {
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="p-6 border-b">
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              
-              <div className="space-y-4">
-                <Button variant="outline" className="text-gray-700">
-                  Fortsett å handle
-                </Button>
-              </div>
 
               <div className="space-y-4">
                 {cartItems.map((item, index) => (
@@ -128,28 +122,28 @@ export default function CartPage() {
                       </div>
                       
                       <div className="flex items-center mt-2">
-                        <div className="flex items-center border rounded-md">
+                        <div className="flex items-center border rounded-md bg-[#8bc34a] hover:bg-[#7cb342]">
                           <button 
                             onClick={() => updateQuantity(index, -1)}
-                            className="w-8 h-8 flex items-center justify-center hover:bg-gray-50"
+                            className="w-8 h-8 flex items-center justify-center text-white font-bold hover:cursor-pointer hover:bg-gray-50 hover:text-black"
                           >
                             -
                           </button>
-                          <span className="w-10 text-center">
+                          <span className="w-10 text-center text-white">
                             {item.quantity}
                           </span>
                           <button 
                             onClick={() => updateQuantity(index, 1)}
-                            className="w-8 h-8 flex items-center justify-center hover:bg-gray-50"
+                            className="w-8 h-8 flex items-center justify-center text-white hover:bg-gray-50 hover:cursor-pointer hover:text-black"
                           >
                             +
                           </button>
                         </div>
                         <button 
                           onClick={() => removeItem(index)}
-                          className="ml-4 text-red-600 hover:text-red-800 text-sm"
+                          className="ml-4 text-red-600 hover:text-red-800 text-sm hover:cursor-pointer"
                         >
-                          Remove
+                          <span className="text-red-400">✕</span>
                         </button>
                       </div>
                     </div>
@@ -170,7 +164,7 @@ export default function CartPage() {
                 </div>
 
                 <Button 
-                  className="w-full mt-6 bg-[#4A5D7E] hover:bg-[#3d4d68] text-white py-6 text-lg"
+                  className="w-full mt-6 bg-[#8bc34a] hover:bg-[#7cb342] text-white py-6 text-lg"
                   onClick={handleKortEllerVipps}
                 >
                   Proceed to Checkout
@@ -179,7 +173,7 @@ export default function CartPage() {
                 <div className="mt-4 text-center">
                   <Link 
                     href="/products/1" 
-                    className="text-[#4A5D7E] hover:underline text-sm"
+                    className="text-[#8bc34a] hover:underline text-sm"
                   >
                     Continue Shopping
                   </Link>

@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#4A5D7E] to-[#5B6D8E] text-white py-20">
+      <div className="bg-gradient-to-r from-[#8bc34a] to-[#5B6D8E] text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">
             Velkommen til NorskBilTeknikk
@@ -20,7 +20,7 @@ export default function Home() {
           </p>
           <Button 
             asChild
-            className="bg-[#8BC34A] hover:bg-[#7CB342] text-white text-lg px-8 py-6"
+            className="bg-[#8bc34a] hover:bg-[#7CB342] text-white text-lg px-8 py-6"
           >
             <Link href="/products/1">
               Se våre produkter
@@ -50,10 +50,10 @@ export default function Home() {
                 Komplett taxilampe med glass, LED felt og magnetfeste. Enkel montering!
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold text-[#4A5D7E]">KR 3,480.00</span>
+                <span className="text-2xl font-bold text-[#8bc34a]">KR 3,480.00</span>
                 <Button 
                   asChild
-                  className="bg-[#8BC34A] hover:bg-[#7CB342] text-white"
+                  className="bg-[#8bc34a] hover:bg-[#7CB342] text-white"
                 >
                   <Link href="/products/1">
                     <ShoppingCart className="mr-2 h-4 w-4" />
@@ -73,7 +73,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="bg-[#4A5D7E] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="bg-[#8bc34a] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 ✓
               </div>
               <h3 className="font-bold mb-2">Høy kvalitet</h3>
@@ -83,7 +83,7 @@ export default function Home() {
             </div>
             
             <div>
-              <div className="bg-[#4A5D7E] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="bg-[#8bc34a] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 🚚
               </div>
               <h3 className="font-bold mb-2">Rask levering</h3>
@@ -93,7 +93,7 @@ export default function Home() {
             </div>
             
             <div>
-              <div className="bg-[#4A5D7E] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="bg-[#8bc34a] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 💬
               </div>
               <h3 className="font-bold mb-2">Ekspertråd</h3>
@@ -103,7 +103,7 @@ export default function Home() {
             </div>
             
             <div>
-              <div className="bg-[#4A5D7E] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+              <div className="bg-[#8bc34a] text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 🛡️
               </div>
               <h3 className="font-bold mb-2">Sikker betaling</h3>
@@ -116,7 +116,7 @@ export default function Home() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-[#8BC34A] py-16">
+      <div className="bg-[#8bc34a] py-16">
         <div className="container mx-auto px-4 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Klar til å handle?</h2>
           <p className="text-xl mb-8">
@@ -125,7 +125,7 @@ export default function Home() {
           <Button 
             asChild
             size="lg"
-            className="bg-white text-[#8BC34A] hover:bg-gray-100 text-lg px-8 py-6"
+            className="bg-white text-[#8bc34a] hover:bg-gray-100 text-lg px-8 py-6"
           >
             <Link href="/products/1">
               Start shopping nå

@@ -187,7 +187,7 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
         <Button 
           variant="outline" 
           onClick={() => router.back()}
-          className="mb-6"
+          className="mb-6 bg-[#8bc34a] hover:bg-[#7cb342] text-white hover:text-white"
         >
           ← Tilbake
         </Button>
@@ -214,21 +214,21 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
                 <Button 
                   variant={customerType === "privat" ? "default" : "outline"}
                   onClick={() => setCustomerType("privat")}
-                  className={customerType === "privat" ? "flex-1 bg-[#4A5D7E] hover:bg-[#3d4d68]" : "flex-1"}
+                  className={customerType === "privat" ? "flex-1  bg-[#8bc34a] hover:bg-[#7cb342]" : "flex-1"}
                 >
                   Privat
                 </Button>
                 <Button 
                   variant={customerType === "bedrift" ? "default" : "outline"}
                   onClick={() => setCustomerType("bedrift")}
-                  className={customerType === "bedrift" ? "flex-1 bg-[#4A5D7E] hover:bg-[#3d4d68]" : "flex-1"}
+                  className={customerType === "bedrift" ? "flex-1 bg-[#8bc34a] hover:bg-[#7cb342]" : "flex-1"}
                 >
                   Bedrift
                 </Button>
               </div>
 
               {/* Google Pay Button */}
-              <Button className="w-full bg-black hover:bg-gray-800 text-white py-6 mb-4 rounded-lg flex items-center justify-center gap-2">
+              <Button className="w-full bg-[#8bc34a] hover:bg-[#7cb342] text-white py-6 mb-4 rounded-lg flex items-center justify-center gap-2">
                 <svg className="h-6 w-auto" viewBox="0 0 41 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19.526 8.568c0 2.456 1.888 4.208 4.288 4.208 1.552 0 2.8-.672 3.456-1.632v1.344h1.632V5.256h-1.632v1.344c-.656-.96-1.904-1.632-3.456-1.632-2.4 0-4.288 1.76-4.288 4.208v.392zm1.68 0c0-1.536 1.12-2.656 2.608-2.656s2.608 1.12 2.608 2.656-.112 2.656-2.608 2.656-2.608-1.12-2.608-2.656zm-6.72-3.36c-1.168 0-2.144.496-2.688 1.264l1.44.96c.32-.544.88-.88 1.536-.88.88 0 1.776.528 1.776 1.472v.112c-.304-.176-.96-.432-1.776-.432-1.632 0-3.296.896-3.296 2.576 0 1.536 1.344 2.528 2.848 2.528 1.152 0 1.792-.528 2.192-1.136v.896h1.568V7.416c0-1.936-1.456-3.216-3.6-3.216v.008zm-.32 7.392c-.56 0-1.344-.272-1.344-1.008 0-.912 1.008-1.264 1.872-1.264.784 0 1.152.176 1.632.4-.144 1.04-1.088 1.888-2.16 1.888v-.016zM8.558 5.4l-2.336 5.952L3.838 5.4H2.062l3.424 7.792-.432 1.184c-.272.736-.544.992-1.008.992-.304 0-.592-.08-.832-.192l-.352 1.632c.304.144.768.24 1.264.24 1.008 0 1.776-.384 2.432-1.92L10.35 5.4H8.558v.008z" fill="white"/>
                 </svg>
@@ -278,7 +278,7 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
                     onChange={(e) => setBillingData({...billingData, address: e.target.value})}
                     className="mt-1"
                   />
-                  <Link href="#" className="text-xs text-[#4A5D7E] hover:underline">Legg til G/N</Link>
+                  <Link href="#" className="text-xs text-[#8bc34a] hover:underline">Legg til G/N</Link>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -338,7 +338,7 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
               {/* Payment Type Selection */}
               <div className="border-t pt-6 space-y-4">
                 <div 
-                  className={`border rounded-lg p-4 cursor-pointer ${paymentType === "card" ? "border-blue-500 bg-blue-50" : ""}`}
+                  className={`border rounded-lg p-4 cursor-pointer ${paymentType === "card" ? "border-[#8bc34a] bg-blue-50" : ""}`}
                   onClick={() => setPaymentType("card")}
                 >
                   <div className="flex items-center justify-between mb-4">
@@ -375,13 +375,13 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
 
                 {/* Vipps Option */}
                 <div 
-                  className={`border rounded-lg p-4 cursor-pointer ${paymentType === "vipps" ? "border-orange-500 bg-orange-50" : ""}`}
+                  className={`border rounded-lg p-4 cursor-pointer ${paymentType === "vipps" ? "border-[#8bc34a] bg-blue-50" : ""}`}
                   onClick={() => setPaymentType("vipps")}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentType === "vipps" ? "border-orange-500" : "border-gray-300"}`}>
-                        {paymentType === "vipps" && <div className="w-3 h-3 rounded-full bg-orange-500" />}
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentType === "vipps" ? "border-[#8bc34a]" : "border-gray-300"}`}>
+                        {paymentType === "vipps" && <div className="w-3 h-3 rounded-full bg-[#8bc34a]" />}
                       </div>
                       <Label className="font-semibold cursor-pointer">
                         Vipps
@@ -428,10 +428,10 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
                   />
                   <Label htmlFor="terms-payment" className="text-sm cursor-pointer">
                     Lagre mine detaljer - Dine kontakt- og betalingsopplysningene lagres trygt hos Nets Denmark A/S for raskere betaling, i henhold til Nets'{" "}
-                    <Link href="/privacy" className="text-[#4A5D7E] underline">
+                    <Link href="/privacy" className="text-[#8bc34a] underline">
                       personvernerklæring
                     </Link>. Du kan når som helst{" "}
-                    <Link href="#" className="text-[#4A5D7E] underline">
+                    <Link href="#" className="text-[#8bc34a] underline">
                       trekke tilbake samtykket ditt
                     </Link>.
                   </Label>
@@ -440,14 +440,14 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
                 <Button
                   onClick={handlePayment}
                   disabled={!agreeToTerms}
-                  className="w-full bg-[#00A6E8] hover:bg-[#0095d1] text-white py-6 text-lg font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-[#8bc34a] hover:bg-[#0095d1] text-white py-6 text-lg font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Betal {calculateTotal().toFixed(0)} kr
                 </Button>
 
                 <p className="text-xs text-center text-gray-500">
                   Ved å trykke på "Betal" aksepterer jeg også{" "}
-                  <Link href="#" className="text-[#4A5D7E] underline">
+                  <Link href="#" className="text-[#8bc34a] underline">
                     vilkårene
                   </Link>{" "}
                   til Nets.no.
@@ -472,14 +472,14 @@ const handlePayment = useCallback(async (paymentMethodId?: string) => {
                   betalingsopplysninger sikkert. Vi tar dine opplysninger på alvor og videresender dem kun
                   til den du handler med. Vi lagrer nå dine opplysninger, og bruker data og tilfredshetsmål
                   på en{" "}
-                  <Link href="#" className="text-[#4A5D7E] underline">
+                  <Link href="#" className="text-[#8bc34a] underline">
                     personverregelse
                   </Link>. For opplysninger om tilgjengelighet og tilfredshetsmeldinger av
                   Nets'{" "}
-                  <Link href="#" className="text-[#4A5D7E] underline">
+                  <Link href="#" className="text-[#8bc34a] underline">
                     tilgjengelighetsreglene
                   </Link>. Les mer i Nets sine{" "}
-                  <Link href="#" className="text-[#4A5D7E] underline">
+                  <Link href="#" className="text-[#8bc34a] underline">
                     personvernreglene
                   </Link>.
                 </p>

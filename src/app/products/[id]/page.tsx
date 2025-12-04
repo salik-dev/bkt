@@ -112,7 +112,7 @@ export default function ProductDetailPage() {
       
       <div className="container mx-auto px-4 py-6">
         <div className="text-sm text-gray-600 mb-4">
-          <Link href="/" className="hover:text-[#4A5D7E]">Hjem</Link> / 
+          <Link href="/" className="hover:text-[#8bc34a]">Hjem</Link> / 
           <span> Click & Go (Komplett taxilampe)</span>
         </div>
 
@@ -183,9 +183,9 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Button 
-                className="w-full bg-[#4A5D7E] hover:bg-[#3d4d68] text-white py-6 text-lg"
+                className="w-full bg-[#8bc34a] text-white py-6 text-lg hover:bg-[#7cb342] hover:curso-pointer"
                 onClick={handleAddToCart}
               >
                 <ShoppingCart className="mr-2 h-5 w-5" />
@@ -193,7 +193,7 @@ export default function ProductDetailPage() {
               </Button>
               
               <Button 
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-lg"
+                className="w-full bg-[#8bc34a] hover:bg-[#7cb342] text-white py-6 text-lg hover:cursor-pointer"
                 onClick={() => {
                   handleAddToCart();
                   router.push('/checkout');
@@ -207,7 +207,7 @@ export default function ProductDetailPage() {
 
         <div className="bg-white p-8 rounded-lg mt-8">
           <div className="border-b mb-6">
-            <button className="px-6 py-3 border-b-2 border-[#4A5D7E] font-semibold">
+            <button className="px-6 py-3 border-b-2 border-[#8bc34a] font-semibold">
               INFORMASJON
             </button>
           </div>
@@ -224,8 +224,8 @@ export default function ProductDetailPage() {
                   : 'Taxi lamp top part only. Perfect if you already have the base.'}
               </p>
               <p className="text-sm text-gray-600 italic">
-                <Link href="#" className="text-[#4A5D7E] underline">Magnetlist</Link> og{" "}
-                <Link href="#" className="text-[#4A5D7E] underline">beskyttelsesfolie</Link> er ikke lengre inkludert i dette produktet, men kan kjøpes som tilvalg.
+                <Link href="#" className="text-[#8bc34a] underline">Magnetlist</Link> og{" "}
+                <Link href="#" className="text-[#8bc34a] underline">beskyttelsesfolie</Link> er ikke lengre inkludert i dette produktet, men kan kjøpes som tilvalg.
               </p>
             </div>
 
@@ -279,7 +279,7 @@ export default function ProductDetailPage() {
                 </div>
                 <h3 className="font-semibold mb-2">{product.name}</h3>
                 <p className="text-lg font-bold mb-3">KR {product.price.toFixed(2)},-</p>
-                <Button className="w-full bg-[#8BC34A] hover:bg-[#7CB342] text-white">
+                <Button className="w-full bg-[#8bc34a] hover:bg-[#7CB342] text-white">
                   VIS PRODUKT
                 </Button>
               </div>
@@ -301,7 +301,7 @@ export default function ProductDetailPage() {
                 <div className="aspect-square bg-gray-100 mb-4 rounded"></div>
                 <h3 className="font-semibold text-sm mb-2">{product.name}</h3>
                 <p className="text-lg font-bold mb-3">KR {product.price.toFixed(2)},-</p>
-                <Button className="w-full bg-[#8BC34A] hover:bg-[#7CB342] text-white text-sm">
+                <Button className="w-full bg-[#8bc34a] hover:bg-[#7CB342] text-white text-sm">
                   VIS PRODUKT
                 </Button>
               </div>

@@ -76,7 +76,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   type="button"
   onClick={handleSubmit}
   disabled={processing}
-  className={`w-full bg-[#4A5D7E] hover:bg-[#3d4d68] ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
+  className={`w-full bg-[#8bc34a] hover:bg-[#7cb342] ${processing ? 'opacity-50 cursor-not-allowed' : ''}`}
 >
   {processing ? 'Behandler betaling...' : `Betal ${totalAmount} kr`}
 </Button>

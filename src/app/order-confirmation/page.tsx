@@ -101,7 +101,7 @@ export default function OrderConfirmationPage() {
           </Button>
           <Button 
             onClick={handleDownloadInvoice}
-            className="bg-[#4A5D7E] hover:bg-[#3d4d68] text-white gap-2"
+            className=" bg-[#8bc34a] hover:bg-[#7cb342] text-white gap-2"
           >
             <Download className="h-4 w-4" />
             Last ned faktura
@@ -226,7 +226,7 @@ export default function OrderConfirmationPage() {
 
               <div className="flex justify-between text-lg font-bold pt-4 border-t-2">
                 <span>Total:</span>
-                <span className="text-[#4A5D7E]">kr {orderData.total.toFixed(2)}</span>
+                <span className="text-[#7cb342]">kr {orderData.total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -257,7 +257,7 @@ export default function OrderConfirmationPage() {
             <div className="mt-6">
               <Button 
                 onClick={() => router.push("/")}
-                className="w-full bg-[#4A5D7E] hover:bg-[#3d4d68] text-white"
+                className="w-full bg-[#8bc34a] hover:bg-[#7cb342] text-white"
               >
                 Tilbake til forsiden
               </Button>
@@ -270,12 +270,12 @@ export default function OrderConfirmationPage() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <div className="bg-[#4A5D7E] px-3 py-1 rounded">
+                <div className="bg-[#7cb342] px-3 py-1 rounded">
                   <span className="text-white font-bold text-xl">NorskBilTeknikk</span>
                 </div>
                 <span className="font-bold">BERGEN KOMMUNIKASJONSTEKNISK AS</span>
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-700">
                 <p>Telefon: 55229001</p>
                 <p>E-post: test@norskbilteknikk.no</p>
                 <p>Org. nr: 960432835</p>
@@ -284,20 +284,20 @@ export default function OrderConfirmationPage() {
             <div className="text-right text-sm text-gray-600">
               <p>Har du spørsmål om din bestilling?</p>
               <p>Kontakt kundeservice:</p>
-              <p className="font-semibold">Hverdager 07:30 - 15:30</p>
+              <p className="font-semibold text-[#8bc34a]">Hverdager 07:30 - 15:30</p>
             </div>
           </div>
         </div>
 
         {/* Additional Links */}
         <div className="text-center mt-8 print:hidden">
-          <p className="text-sm text-gray-600 mb-4">
-            Trenger du hjelp? <Link href="/contact" className="text-[#4A5D7E] hover:underline">Kontakt oss</Link>
+          <p className="text-sm text-[#8bc34a] mb-4">
+            Trenger du hjelp? <Link href="/contact" className="text-[#8bc34a] hover:underline">Kontakt oss</Link>
           </p>
           <div className="flex justify-center gap-4 text-sm">
-            <Link href="/betingelser" className="text-[#4A5D7E] hover:underline">Betingelser</Link>
-            <Link href="/angrerettskjema" className="text-[#4A5D7E] hover:underline">Angrerettskjema</Link>
-            <Link href="/personvern" className="text-[#4A5D7E] hover:underline">Personvern</Link>
+            <Link href="/betingelser" className="text-[#8bc34a] hover:underline">Betingelser</Link>
+            <Link href="/angrerettskjema" className="text-[#8bc34a] hover:underline">Angrerettskjema</Link>
+            <Link href="/personvern" className="text-[#8bc34a] hover:underline">Personvern</Link>
           </div>
         </div>
       </div>
