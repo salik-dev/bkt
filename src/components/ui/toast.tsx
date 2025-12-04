@@ -38,10 +38,10 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
     <div className={`fixed bottom-4 right-4 p-4 rounded-md border ${getTypeStyles()} shadow-lg z-50`}>
       <div className="flex items-center">
         <span className="mr-2">
-          {type === 'success' && '✅'}
-          {type === 'error' && '❌'}
-          {type === 'warning' && '⚠️'}
-          {type === 'info' && 'ℹ️'}
+          {type === 'success'}
+          {type === 'error'}
+          {type === 'warning'}
+          {type === 'info'}
         </span>
         <span>{message}</span>
       </div>
