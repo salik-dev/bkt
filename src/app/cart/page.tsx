@@ -4,8 +4,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 import { ShippingDisclaimerDialog } from "@/components/ShippingDisclaimerDialog"
@@ -73,7 +71,6 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-6">
@@ -199,7 +196,6 @@ export default function CartPage() {
         onConfirm={handleDisclaimerConfirm}
       />
 
-      <Footer />
     </div>
   )
 }

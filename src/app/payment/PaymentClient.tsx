@@ -9,8 +9,6 @@ import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 
 interface CartItem {
   id: string
@@ -106,8 +104,6 @@ export default function PaymentClient() {
     
     return (
        <div className="min-h-screen bg-gray-50">
-      <Header />
-
       <div className="container mx-auto max-w-[70rem] px-4 py-8">
         <Button 
           variant="outline" 
@@ -499,8 +495,6 @@ export default function PaymentClient() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
     )
 

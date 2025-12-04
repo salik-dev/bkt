@@ -4,8 +4,6 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ShoppingCart, Facebook, Twitter } from "lucide-react"
@@ -47,14 +45,10 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="container mx-auto px-4 py-6">
         <div className="text-sm text-gray-600 mb-4">
           <Link href="/" className="hover:text-[#4A5D7E]">Hjem</Link> / 
-          <Link href="/products" className="hover:text-[#4A5D7E]"> Taxi</Link> / 
-          <Link href="/products" className="hover:text-[#4A5D7E]"> Taxilamper</Link> / 
-          <Link href="/products" className="hover:text-[#4A5D7E]"> Komplett</Link> / 
           <span> Click & Go (Komplett taxilampe)</span>
         </div>
 
@@ -233,8 +227,6 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

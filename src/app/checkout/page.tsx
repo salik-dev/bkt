@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -139,7 +137,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
 
       <form onSubmit={handleConfirmOrder} className="container max-w-[70rem] mx-auto px-4 py-8">
         <Button
@@ -510,8 +507,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </form>
-
-      <Footer />
     </div>
   )
 }

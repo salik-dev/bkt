@@ -3,10 +3,8 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, Download, Printer } from "lucide-react"
+import { Download, Printer } from "lucide-react"
 
 interface OrderData {
   billingData: {
@@ -87,7 +85,6 @@ export default function OrderConfirmationPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
 
       <div className="container mx-auto px-4 py-8 max-w-[70rem] shadown-lg rounded-lg">
         
@@ -304,9 +301,6 @@ export default function OrderConfirmationPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
-
       <style jsx global>{`
         @media print {
           header, footer, button, .print\\:hidden {
