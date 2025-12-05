@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/toast";
 import { CheckoutProgress } from '@/components/checkout/CheckoutProgress';
 import { ShippingForm, ShippingData } from '@/components/checkout/ShippingForm';
-import { PaymentForm, PaymentData } from '@/components/checkout/PaymentForm';
+import { PaymentForm } from '@/components/checkout/PaymentForm';
+import OrderConfirmationPage from '../order-confirmation/page';
 
 type Step = 'shipping' | 'payment' | 'confirmation';
 
@@ -39,6 +41,8 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [agreeToTerms, setAgreeToTerms] = useState(true);
   const [shippingToDifferentAddress, setShippingToDifferentAddress] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const { showToast, Toast } = useToast();
   
   // Form data states
   const [billingData, setBillingData] = useState<BillingData>({
@@ -79,7 +83,7 @@ export default function CheckoutPage() {
     if (savedCart) {
       setCartItems(JSON.parse(savedCart));
     } else if (currentStep !== 'confirmation') {
-      router.push('/cart');
+      router.push('/products/1');
     }
   }, [router, currentStep]);
 
@@ -124,20 +128,25 @@ export default function CheckoutPage() {
   };
 
   const handlePaymentSubmit = async (data: PaymentData) => {
+    if (!agreeToTerms) {
+      showToast('Please accept the terms of sale to continue', 'error');
+      return;
+    }
+
     setIsLoading(true);
     
     try {
-      if (!validateForm()) {
-        setIsLoading(false);
-        return;
-      }
-
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Generate order ID
-      const newOrderId = `ORD-${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+      // Generate a random order ID
+      const newOrderId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
       setOrderId(newOrderId);
+      
+      // Calculate order totals
+      const subtotal = cartItems.reduce((sum, item) => sum + item.total, 0);
+      const shipping = subtotal > 0 ? 0 : 0; // Free shipping for now
+      const total = subtotal + shipping;
       
       // Save order to localStorage
       const order = {
@@ -155,9 +164,18 @@ export default function CheckoutPage() {
       
       localStorage.setItem('currentOrder', JSON.stringify(order));
       localStorage.removeItem('cart');
-      setCurrentStep('confirmation');
+      
+      // Show success toast
+      showToast('Your order has been placed successfully!', 'success');
+      
+      // Show confirmation step after toast
+      setTimeout(() => {
+        setCurrentStep('confirmation');
+      }, 2000);
+      
     } catch (error) {
       console.error('Error processing order:', error);
+      showToast('There was an error processing your order. Please try again.', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -200,7 +218,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 relative">
+      <Toast />
       <div className="max-w-5xl mx-auto">
         {currentStep !== 'shipping' && (
           <Button 
@@ -214,8 +233,8 @@ export default function CheckoutPage() {
 
         <CheckoutProgress currentStep={currentStep} />
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
+        <div>
+          <div className={`mx-auto ${currentStep === 'confirmation' ? 'max-w-4xl' : 'max-w-3xl'}`}>
             {currentStep === 'shipping' && (
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6">SHIPPING INFORMATION</h2>
@@ -234,10 +253,11 @@ export default function CheckoutPage() {
             {currentStep === 'payment' && (
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6">PAYMENT METHOD</h2>
-                <PaymentForm 
+                <PaymentForm
                   onSubmit={handlePaymentSubmit} 
                   initialData={paymentData}
                   isLoading={isLoading}
+                  totalAmount={total}
                 />
                 <div className="mt-6">
                   <div className="flex items-start space-x-2">
@@ -259,104 +279,8 @@ export default function CheckoutPage() {
             )}
 
             {currentStep === 'confirmation' && orderId && (
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg 
-                      className="w-8 h-8 text-green-500" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M5 13l4 4L19 7" 
-                      />
-                    </svg>
-                  </div>
-                  <h2 className="text-2xl font-bold mb-2">Order Confirmed!</h2>
-                  <p className="text-gray-600 mb-6">
-                    Thank you for your purchase. Your order number is: 
-                    <span className="font-semibold"> {orderId}</span>
-                  </p>
-                  <p className="text-gray-600 mb-8">
-                    A confirmation email has been sent to {billingData.email}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button 
-                      onClick={() => router.push('/')}
-                      className="bg-[#8bc34a] hover:bg-[#7cb342] text-white"
-                    >
-                      Continue Shopping
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => {
-                        // In a real app, this would navigate to order details
-                        alert('Order details would be shown here');
-                      }}
-                    >
-                      View Order Details
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              <OrderConfirmationPage />
             )}
-          </div>
-
-          <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-lg shadow-lg sticky top-4">
-              <h2 className="text-xl font-bold mb-6">ORDER SUMMARY</h2>
-              
-              <div className="space-y-3 mb-6">
-                {cartItems.map((item, index) => (
-                  <div key={index} className="flex justify-between text-sm">
-                    <div>
-                      <p className="font-medium">{item.name}</p>
-                      <p className="text-gray-500 text-sm">Qty: {item.quantity}</p>
-                    </div>
-                    <span className="font-semibold">NOK {item.total.toFixed(2)}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="border-t pt-4 space-y-2">
-                <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>NOK {subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Shipping</span>
-                  <span>{shipping === 0 ? 'Free' : `NOK ${shipping.toFixed(2)}`}</span>
-                </div>
-                <div className="flex justify-between font-bold text-lg pt-2 border-t mt-2">
-                  <span>Total</span>
-                  <span>NOK {total.toFixed(2)}</span>
-                </div>
-              </div>
-
-              {currentStep === 'shipping' && (
-                <div className="mt-6 p-4 bg-gray-50 rounded-md">
-                  <h3 className="font-semibold mb-2">Need Help?</h3>
-                  <p className="text-sm text-gray-600">
-                    Contact our customer support for any questions about your order.
-                  </p>
-                </div>
-              )}
-
-              {currentStep === 'payment' && (
-                <div className="mt-6 text-sm text-gray-600">
-                  <p className="mb-2">We accept:</p>
-                  <div className="flex space-x-2">
-                    <span className="px-2 py-1 bg-gray-100 rounded">Visa</span>
-                    <span className="px-2 py-1 bg-gray-100 rounded">Mastercard</span>
-                    <span className="px-2 py-1 bg-gray-100 rounded">Vipps</span>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>
