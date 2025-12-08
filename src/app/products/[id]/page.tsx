@@ -35,25 +35,22 @@ export default function ProductDetailPage() {
     return prices[lampType as keyof typeof prices] * quantity
   }
 
-  const handleAddToCart = () => {
-    // Store cart data in localStorage
+  const handleCheckout = async () => {
     const cartItem = {
       id: "1",
-      name: lampType === 'complete' ? 'Complete Taxi Lamp' : 'Taxi Lamp Top Only',
+      name: lampType === 'complete' ? 'Complete Taxi Lamp' : 'Top Part Only',
       price: prices[lampType as keyof typeof prices],
       quantity,
-      options: {
-        lampType
-      },
-      total: calculateTotal()
-    }
+      options: { lampType }
+    };
+
+    // Save to localStorage
+    const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    localStorage.setItem('cart', JSON.stringify([...currentCart, cartItem]));
     
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]")
-    existingCart.push(cartItem)
-    localStorage.setItem("cart", JSON.stringify(existingCart))
-    
-    router.push("/cart")
-  }
+    // Redirect to checkout
+    router.push('/checkout');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -168,38 +165,49 @@ export default function ProductDetailPage() {
                 </SelectContent>
               </Select>
             </div>
-            <p className="text-sm text-gray-600 mb-3">
-              Magnetlist og beskyttelsesfolie er ikke lengre inkludert i dette produktet, men kan kjøpes som tilvalg.
+            <p className="text-sm text-gray-600 mb-6">
+              Magnetlist og beskyttelsesfolie er ikke lenger inkludert i dette produktet, men kan kjøpes som tilvalg.
             </p>
 
+            {/* Quantity Selector */}
             <div className="mb-6">
-              <div className="flex justify-between mb-2">
-                <span className="text-sm">Produktpris kr {prices[lampType as keyof typeof prices].toFixed(2)} x {quantity}</span>
-                <span className="font-semibold">kr {calculateTotal().toFixed(2)}</span>
+              <label className="block text-sm font-semibold mb-2">Quantity</label>
+              <div className="flex items-center border rounded-md w-32 bg-[#8bc34a] hover:bg-[#7cb342] text-white">
+                <button 
+                  onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                  className="w-10 h-10 flex items-center justify-center font-bold hover:bg-white/20"
+                >
+                  -
+                </button>
+                <span className="flex-1 text-center">{quantity}</span>
+                <button 
+                  onClick={() => setQuantity(prev => prev + 1)}
+                  className="w-10 h-10 flex items-center justify-center font-bold hover:bg-white/20"
+                >
+                  +
+                </button>
               </div>
-              <div className="flex justify-between font-bold text-lg border-t pt-2">
+            </div>
+
+            {/* Price Summary */}
+            <div className="mb-6 bg-gray-50 p-4 rounded-lg">
+              <div className="flex justify-between text-sm mb-2">
+                <span>Product Price</span>
+                <span>kr {prices[lampType as keyof typeof prices].toFixed(2)} x {quantity}</span>
+              </div>
+              <div className="flex justify-between font-bold text-lg border-t border-gray-200 pt-2">
                 <span>Total</span>
                 <span>kr {calculateTotal().toFixed(2)}</span>
               </div>
             </div>
 
+            {/* Checkout Button */}
             <div className="space-y-2">
               <Button 
-                className="w-full bg-[#8bc34a] text-white py-6 text-lg hover:bg-[#7cb342] hover:curso-pointer"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart - kr {calculateTotal().toFixed(2)}
-              </Button>
-              
-              <Button 
                 className="w-full bg-[#8bc34a] hover:bg-[#7cb342] text-white py-6 text-lg hover:cursor-pointer"
-                onClick={() => {
-                  handleAddToCart();
-                  router.push('/checkout');
-                }}
+                onClick={handleCheckout}
               >
-                Checkout Now
+                Checkout Now - kr {calculateTotal().toFixed(2)}
               </Button>
             </div>
           </div>

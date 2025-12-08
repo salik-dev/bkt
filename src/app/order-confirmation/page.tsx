@@ -83,10 +83,13 @@ export default function OrderConfirmationPage() {
     })
   }
 
+const product = JSON.parse(localStorage.getItem('product') || '{}');
+const totalAmount = parseFloat(localStorage.getItem('totalAmount') || '0');
+
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <div className="container mx-auto px-4 py-8 max-w-[70rem] rounded-lg">
+      <div className="container mx-auto px-4 py-8 rounded-lg">
         
 
         {/* Action Buttons */}
@@ -106,6 +109,7 @@ export default function OrderConfirmationPage() {
             <Download className="h-4 w-4" />
             Last ned faktura
           </Button>
+  
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
@@ -197,37 +201,49 @@ export default function OrderConfirmationPage() {
                   </tr>
                 </thead>
                 <tbody className="text-sm">
-                  {orderData.items.map((item, index) => (
-                    <tr key={index} className="border-b">
-                      <td className="py-3">{item.name}</td>
-                      <td className="py-3 text-center">× {item.quantity}</td>
-                      <td className="py-3 text-right font-semibold">
-                        kr {item.total.toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
+{product && Object.keys(product).length > 0 ? (
+  <tr className="border-b">
+    <td className="py-3">{product.name || 'Produkt'}</td>
+    <td className="py-3 text-center">× {product.quantity || 1}</td>
+    <td className="py-3 text-right font-semibold">
+      kr {totalAmount ? totalAmount.toFixed(2) : '0.00'}
+    </td>
+  </tr>
+) : (
+  <tr>
+    <td colSpan={3} className="py-3 text-center text-gray-500">
+      Ingen produkter funnet
+    </td>
+  </tr>
+)}
                 </tbody>
               </table>
 
-              <div className="space-y-2 pt-4 border-t">
-                <div className="flex justify-between text-sm">
-                  <span>Delsum:</span>
-                  <span className="font-semibold">kr {orderData.subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Frakt:</span>
-                  <span className="font-semibold">kr {orderData.freight.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>MVA (inkludert):</span>
-                  <span>kr {((orderData.total * 0.2) / 1.2).toFixed(2)}</span>
-                </div>
-              </div>
+             <div className="space-y-2 pt-4 border-t">
+  <div className="flex justify-between text-sm">
+    <span>Delsum:</span>
+    <span className="font-semibold">
+      kr {totalAmount ? totalAmount.toFixed(2) : '0.00'}
+    </span>
+  </div>
+  <div className="flex justify-between text-sm">
+    <span>Frakt:</span>
+    <span className="font-semibold">kr 0.00</span>
+  </div>
+  <div className="flex justify-between text-sm text-gray-600">
+    <span>MVA (inkludert):</span>
+    <span>
+      kr {totalAmount ? (totalAmount * 0.2).toFixed(2) : '0.00'}
+    </span>
+  </div>
+</div>
 
-              <div className="flex justify-between text-lg font-bold pt-4 border-t-2">
-                <span>Total:</span>
-                <span className="text-[#7cb342]">kr {orderData.total.toFixed(2)}</span>
-              </div>
+<div className="flex justify-between text-lg font-bold pt-4 border-t-2">
+  <span>Total:</span>
+  <span className="text-[#7cb342]">
+    kr {totalAmount ? totalAmount.toFixed(2) : '0.00'}
+  </span>
+</div>
             </div>
 
             <div className="mt-8 p-4 bg-blue-50 rounded-lg">
