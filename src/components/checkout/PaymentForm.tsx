@@ -22,7 +22,7 @@ interface CartItem {
   total: number
 }
 
-// Initialize Stripe with your publishable key
+// Initialize Stripe with your publishable key 
 const pubKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = loadStripe(pubKey!);
 
